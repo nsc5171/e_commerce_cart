@@ -9,7 +9,11 @@
   "main": "server/server.js",
   "scripts": {
     "lint": "eslint .",
-    "fix-lint": "eslint --fix ."
+    "fix-lint": "eslint --fix .",
+    "prestart":"node server/migrate.js",
+    "start":"node server/server.js",
+    "predebug":"node --inspect server/migrate.js",
+    "debug":"node --inspect server/server.js"
   },
   "dependencies": {
     "@nsaichandra/oe-common-utils": "^0.0.27",
