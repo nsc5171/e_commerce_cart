@@ -6,12 +6,28 @@
   "options": {
     "validateUpsert": true
   },
-  "properties": {},
+  "properties": {
+    "MRP": {
+      "type": "number",
+      "numericality": "integer",
+      "min": 0,
+      "required": true
+    },
+    "sellingPrice": {
+      "type": "number",
+      "numericality": "integer",
+      "min": 0,
+      "required": true
+    },
+    "promotions": [
+      "string"
+    ]
+  },
   "validations": [],
   "relations": {
-    "cartItems":{
+    "cartItems": {
       "type": "embedsMany",
-      "property":"items",
+      "property": "items",
       "model": "CartItem"
     }
   },
