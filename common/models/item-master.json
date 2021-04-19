@@ -1,7 +1,7 @@
 {
   "name": "ItemMaster",
   "plural": "ItemMaster",
-  "base": "BaseEntity",
+  "base": "RefCodeBase",
   "idInjection": true,
   "options": {
     "validateUpsert": true
