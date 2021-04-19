@@ -14,5 +14,13 @@
   "ItemMaster": {
     "dataSource": "db",
     "public": true
+  },
+  "Cart": {
+    "dataSource": "db",
+    "public": true
+  },
+  "CartItem": {
+    "dataSource": "db",
+    "public": false
   }
 }

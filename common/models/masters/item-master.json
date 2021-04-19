@@ -1,0 +1,20 @@
+{
+  "name": "ItemMaster",
+  "plural": "ItemMaster",
+  "base": "RefCodeBase",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "MRP": {
+      "type": "number",
+      "min": 0.01
+    },
+    "promotion": "string"
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
