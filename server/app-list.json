@@ -1,0 +1,45 @@
+[
+  {
+    "path": "oe-cloud",
+    "enabled": true
+  },
+  {
+    "path": "oe-common-mixins",
+    "autoEnableMixins": true,
+    "enabled": true
+  },
+  {
+    "path": "oe-model-composite",
+    "autoEnableMixins": true,
+    "enabled": true
+  },
+  {
+    "path": "oe-expression",
+    "autoEnableMixins": true,
+    "enabled": true
+  },
+  {
+    "path": "oe-business-rule",
+    "autoEnableMixins": true,
+    "enabled": true
+  },
+  {
+    "path": "oe-validation",
+    "autoEnableMixins": true,
+    "enabled": true
+  },
+  {
+    "path": "oe-node-red",
+    "autoEnableMixins": true,
+    "enabled": true
+  },
+  {
+    "path": "oe-migration",
+    "autoEnableMixins": true,
+    "enabled": true
+  },
+  {
+    "path": "./",
+    "enabled": true
+  }
+]
