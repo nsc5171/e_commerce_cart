@@ -1,0 +1,40 @@
+[
+    {
+        "code": "A",
+        "description": "Apple",
+        "MRP": "30",
+        "promotions": [
+            {
+                "mutualExclusivityGroup": null,
+                "conditionScript": "_item.quantity>3",
+                "discountCalculatorFunction": "(_item)=>5*_item.quantity",
+                "description": "Buy 3 or more to get Rs.5 off per item."
+            }
+        ]
+    },
+    {
+        "code": "B",
+        "description": "Ball",
+        "MRP": "20",
+        "promotions": [
+            {
+                "mutualExclusivityGroup": null,
+                "conditionScript": "_item.quantity>2",
+                "discountCalculatorFunction": "(_item)=>(_item.quantity-(_item.quantity%2))*5/2",
+                "description": "Rs.5 off for every 2 items bought."
+            }
+        ]
+    },
+    {
+        "code": "C",
+        "description": "Clip",
+        "MRP": "50",
+        "promotions": []
+    },
+    {
+        "code": "D",
+        "description": "Doll",
+        "MRP": "15",
+        "promotions": []
+    }
+]

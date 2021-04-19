@@ -6,7 +6,34 @@
     "options": {
         "validateUpsert": true
     },
-    "properties": {},
+    "properties": {
+        "itemType": {
+            "type": "string",
+            "required": true,
+            "refcodetype": "ItemMaster"
+        },
+        "quantity": {
+            "type": "number",
+            "numericality": "integer",
+            "min": 1,
+            "required": true
+        },
+        "perItemMRP": {
+            "type": "number",
+            "numericality": "integer",
+            "min": 0,
+            "required": true
+        },
+        "sellingPrice": {
+            "type": "number",
+            "numericality": "integer",
+            "min": 0,
+            "required": true
+        },
+        "promotions": [
+            "string"
+        ]
+    },
     "validations": [],
     "relations": {},
     "acls": [],

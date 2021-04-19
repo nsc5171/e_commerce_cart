@@ -15,12 +15,20 @@
     "dataSource": "db",
     "public": true
   },
+  "CartItem": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ItemPromotion": {
+    "dataSource": "db",
+    "public": false
+  },
   "Cart": {
     "dataSource": "db",
     "public": true
   },
-  "CartItem": {
+  "CartPromotion": {
     "dataSource": "db",
-    "public": false
+    "public": true
   }
 }

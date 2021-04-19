@@ -1,0 +1,31 @@
+{
+    "name": "ItemPromotion",
+    "plural": "ItemPromotions",
+    "base": "BaseEntity",
+    "idInjection": true,
+    "options": {
+        "validateUpsert": true
+    },
+    "properties": {
+        "mutualExclusivityGroup": "string",
+        "conditionScript": {
+            "type": "string",
+            "required": true
+        },
+        "discountCalculatorFunction": {
+            "type": "string",
+            "required": true
+        },
+        "description": {
+            "type": "string",
+            "required": true
+        }
+    },
+    "validations": [],
+    "relations": {},
+    "acls": [],
+    "methods": {},
+    "mixins": {
+        "VersionMixin": false
+    }
+}

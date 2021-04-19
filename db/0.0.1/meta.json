@@ -1,0 +1,30 @@
+{
+    "clearTables": false,
+    "contexts": {
+        "default": {
+            "id": 0,
+            "tenantId": "default",
+            "remoteUser": "defaultCtxMgrtnUser"
+        }
+    },
+    "files": [
+        {
+            "skipValidation": false,
+            "updateAttributes": false,
+            "key": "id",
+            "model": "Error",
+            "enabled": true,
+            "file": "default/Error.json",
+            "ctxId": "default"
+        },
+        {
+            "skipValidation": false,
+            "updateAttributes": false,
+            "key": "id",
+            "model": "ItemMaster",
+            "enabled": true,
+            "file": "default/ItemMaster.json",
+            "ctxId": "default"
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+[
+    {
+        "errCode": "empty-cart-err-01",
+        "errMessage": "Cart empty!!"
+    }
+]
