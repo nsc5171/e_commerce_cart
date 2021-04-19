@@ -1,6 +1,11 @@
 /* eslint-disable no-console */
-var oecloud = require('oe-cloud');
-var path = require('path');
+const oecloud = require('oe-cloud');
+const path = require('path');
+
+const PRE_BOOT_INTERCEPTOR = require('./pre-boot-interceptor.js');
+
+//Intercept before app boot and start to make customizations
+PRE_BOOT_INTERCEPTOR()
 
 process.env.ENABLE_COOKIE = process.env.ENABLE_COOKIE || true;
 oecloud.boot(__dirname, function (err) {

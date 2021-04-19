@@ -12,6 +12,7 @@
     "fix-lint": "eslint --fix ."
   },
   "dependencies": {
+    "@nsaichandra/oe-common-utils": "^0.0.27",
     "async": "^2.5.0",
     "lodash": "^4.17.15",
     "loopback-component-explorer": "^6.5.0",

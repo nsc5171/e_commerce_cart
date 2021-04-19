@@ -39,6 +39,10 @@
     "enabled": true
   },
   {
+    "path": "@nsaichandra/oe-common-utils",
+    "enabled": true
+  },
+  {
     "path": "./",
     "enabled": true
   }
