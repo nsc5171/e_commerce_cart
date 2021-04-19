@@ -13,11 +13,10 @@
       "min": 0,
       "required": true
     },
-    "sellingPrice": {
+    "discount": {
       "type": "number",
       "numericality": "integer",
-      "min": 0,
-      "required": true
+      "min": 0
     },
     "promotions": [
       "string"
