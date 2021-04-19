@@ -25,6 +25,15 @@
             "enabled": true,
             "file": "default/ItemMaster.json",
             "ctxId": "default"
+        },
+        {
+            "skipValidation": false,
+            "updateAttributes": false,
+            "key": "id",
+            "model": "User",
+            "enabled": true,
+            "file": "default/User.json",
+            "ctxId": "default"
         }
     ]
 }

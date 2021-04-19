@@ -1,0 +1,115 @@
+{
+	"info": {
+		"_postman_id": "b2976798-5f4b-40a2-a4eb-dcc6f720e9ba",
+		"name": "E Commerce Cart",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.environment.set(\"access_token\", pm.response.json().id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"com_cart_admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{uri}}/Users/login",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"Users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "ItemMaster",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{uri}}/ItemMaster?access_token={{access_token}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"ItemMaster"
+							],
+							"query": [
+								{
+									"key": "access_token",
+									"value": "{{access_token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create cart record",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"MRP\":100,\r\n  \"sellingPrice\": 50,\r\n  \"promotions\": [\r\n    \r\n  ],\r\n  \"items\": [\r\n    {\r\n      \"itemType\": \"A\",\r\n      \"quantity\": 2,\r\n      \"perItemMRP\": 50,\r\n      \"sellingPrice\": 50,\r\n      \"promotions\": [\r\n        \"50% off\"\r\n      ]\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri}}/Carts?access_token={{access_token}}",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"Carts"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
