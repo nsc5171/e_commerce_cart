@@ -1,0 +1,14 @@
+{
+  "name": "ItemMaster",
+  "plural": "ItemMaster",
+  "base": "BaseEntity",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
