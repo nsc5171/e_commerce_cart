@@ -10,4 +10,16 @@ module.exports = function Cart(Model) {
         if (utils.arrayify(data.items).length < 1) return utils.errorUtil.chainErrOnCb(constants.ERROR_CODES.EMPTY_CART_ERR_01, {}, options, next);
         process.nextTick(next);
     });
+
+    Match.remoteMethod('calculateCartPricing', {
+        accepts: [
+            utils.options_arg_defn
+        ],
+        http: { verb: 'POST' },
+        returns: { root: true, type: 'object' }
+    });
+
+    Model.calculateCartPricing= function calculateCartPricing(data,options,next){
+        
+    }
 }

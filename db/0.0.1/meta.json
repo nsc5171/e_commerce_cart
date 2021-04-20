@@ -34,6 +34,15 @@
             "enabled": true,
             "file": "default/User.json",
             "ctxId": "default"
+        },
+        {
+            "skipValidation": false,
+            "updateAttributes": false,
+            "key": "id",
+            "model": "AppConfig",
+            "enabled": true,
+            "file": "default/AppConfig.json",
+            "ctxId": "default"
         }
     ]
 }

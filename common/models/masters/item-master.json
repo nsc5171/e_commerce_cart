@@ -10,16 +10,16 @@
     "MRP": {
       "type": "number",
       "min": 0.01
+    },
+    "promotionCodes": {
+      "type": [
+        "string"
+      ],
+      "refcodetype": "ItemPromotion"
     }
   },
   "validations": [],
-  "relations": {
-    "itemPromotions": {
-      "type": "embedsMany",
-      "property": "promotions",
-      "model": "ItemPromotion"
-    }
-  },
+  "relations": {},
   "acls": [],
   "methods": {}
 }

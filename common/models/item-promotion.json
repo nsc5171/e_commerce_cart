@@ -1,22 +1,20 @@
 {
     "name": "ItemPromotion",
     "plural": "ItemPromotions",
-    "base": "BaseEntity",
+    "base": "RefCodeBase",
     "idInjection": true,
     "options": {
         "validateUpsert": true
     },
     "properties": {
-        "mutualExclusivityGroup": "string",
+        "mutualExclusivityGroups": [
+            "string"
+        ],
         "conditionScript": {
             "type": "string",
             "required": true
         },
         "discountCalculatorFunction": {
-            "type": "string",
-            "required": true
-        },
-        "description": {
             "type": "string",
             "required": true
         }
