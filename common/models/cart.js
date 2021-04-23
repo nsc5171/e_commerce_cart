@@ -89,20 +89,29 @@ module.exports = function cart(Cart) {
             function processItemPromotions(stepDone) {
                 data.items.forEach(item => {
                     let itemMaster = fnCtx.itemMasters[item.itemType];
-                    item.perItemMRP = itemMaster.MRP;
-                    item.discount = 0;
-                    utils.arrayify(itemMaster.promotionCodes).forEach(promotionCode => {
-                        fnCtx.itemPromotionInsts[promotionCode].applyPromotion(item);
-                    });
+                    Object.assign(item, {
+                        perItemMRP: itemMaster.MRP,
+                        discount: 0,
+                        promotions: [],
+                        _promotionCodes: []
+                    }),
+
+                        utils.arrayify(itemMaster.promotionCodes).forEach(promotionCode => {
+                            fnCtx.itemPromotionInsts[promotionCode].applyPromotion(item);
+                        });
                     if (!atStorage) item._sellingPrice = Math.max(0, (item.quantity * item.perItemMRP) - item.discount);
                 });
                 process.nextTick(stepDone);
             },
             function processCartPromotions(stepDone) {
-                data._appliedPromotionGroups = new Set();
-                data.itemsDiscount = 0;
-                data.cartDiscount = 0;
-                data.MRP = 0;
+                Object.assign(data, {
+                    _appliedPromotionGroups: new Set(),
+                    itemsDiscount: 0,
+                    cartDiscount: 0,
+                    MRP: 0,
+                    promotions: [],
+                    _promotionCodes: []
+                });
                 data.items.forEach(item => {
                     data.itemsDiscount += item.discount;
                     data.MRP += (item.perItemMRP * item.quantity);
