@@ -12,7 +12,7 @@
         ],
         "pattern": {
             "type": "string",
-            "refcodetype": "CartPromotionPattern",
+            "refcodetype": "ItemPromotionPattern",
             "required": true
         },
         "params": [

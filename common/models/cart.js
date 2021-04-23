@@ -15,12 +15,12 @@ module.exports = function cart(Cart) {
         process.nextTick(next);
     });
 
-    Match.remoteMethod('calculateCartPricing', {
+    Cart.remoteMethod('calculateCartPricing', {
         accepts: [
-            { arg: 'data', required: true, type: "Cart", http: { source: "body" } },
+            { arg: 'data', required: true, type: "object", http: { source: "body" } },
             utils.options_arg_defn
         ],
-        http: { verb: 'POST' },
+        http: { verb: 'PUT' },
         returns: { root: true, type: 'object' }
     });
 
@@ -37,7 +37,7 @@ module.exports = function cart(Cart) {
                         })
                     },
                     function fetchItemMasterRecs(threadDone) {
-                        utils.lb.findModel('ItemMaster').find({ where: { inq: fnCtx.itemTypes } }, options, (err, itemMasterRecs) => {
+                        utils.lb.findModel('ItemMaster').find({ where: { code: { inq: fnCtx.itemTypes } } }, options, (err, itemMasterRecs) => {
                             if (err) return threadDone(err);
                             utils.arrayify(itemMasterRecs).forEach(im => {
                                 fnCtx.itemMasters[im.code] = im;
@@ -48,7 +48,7 @@ module.exports = function cart(Cart) {
                             threadDone();
                         })
                     }
-                ], stepDone);
+                ], err => stepDone(err));
             },
             function fetchPromotionDefns(stepDone) {
                 async.parallel([
@@ -70,12 +70,13 @@ module.exports = function cart(Cart) {
                             threadDone(err);
                         })
                     }
-                ], stepDone);
+                ], err => stepDone(err));
             },
             function processItemPromotions(stepDone) {
                 data.items.forEach(item => {
                     let itemMaster = fnCtx.itemMasters[item.itemType];
                     item.perItemMRP = itemMaster.MRP;
+                    item.discount = 0;
                     utils.arrayify(itemMaster.promotionCodes).forEach(promotionCode => {
                         fnCtx.itemPromotionInsts[promotionCode].applyPromotion(item);
                     })
@@ -83,9 +84,16 @@ module.exports = function cart(Cart) {
                 process.nextTick(stepDone);
             },
             function processCartPromotions(stepDone) {
+                data._appliedPromotionGroups = new Set();
+                data.itemsDiscount = 0;
+                data.MRP = 0;
                 data.items.forEach(item => {
                     data.itemsDiscount += item.discount;
                     data.MRP += (item.perItemMRP * item.quantity);
+                    item._appliedPromotionGroups.forEach(val => {
+                        data._appliedPromotionGroups.add(val);
+                    });
+                    // delete item._appliedPromotionGroups;
                 })
                 utils.arrayify(fnCtx.cartPromotionCodes).forEach(promotionCode => {
                     fnCtx.cartPromotionInsts[promotionCode].applyPromotion(data);

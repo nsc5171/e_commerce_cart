@@ -6,42 +6,46 @@ module.exports = function itemPromotion(ItemPromotion) {
 
     ItemPromotion._pattern_handlers = {
         default: function (cartItem) {
-            return cartItem;
+            return false;
         },
         "MULTI_BUY": function (cartItem, itemCountEqOrMoreThan, discountPerItem) {
             if (cartItem.quantity >= utils.num(itemCountEqOrMoreThan)) {
                 cartItem.discount += (utils.num(discountPerItem) * cartItem.quantity);
+                return true;
             }
-            return cartItem;
+            return false;
         }
     };
 
     ItemPromotion._no_pattern_handlers = {
         default: function (cartItem) {
-            return cartItem;
+            return false;
         }
     };
 
-    ItemPromotion.getHandler = function getHandler(pattern, custHandlerName) {
-        return function (cartItem) {
-            if (!cartItem._appliedPromotionGroups) cartItem._appliedPromotionGroups = new Set();
-            if (pattern === 'NO_PATTERN') {
-                return (ItemPromotion._no_pattern_handlers[custHandlerName] || ItemPromotion._no_pattern_handlers.default).apply(null, arguments);
-            } else {
-                return (ItemPromotion._pattern_handlers[pattern] || ItemPromotion._pattern_handlers.default).apply(null, arguments);
-            }
+    function getHandler(pattern, promotionCode) {
+        return function () {
+            return (pattern === 'NO_PATTERN') ? (ItemPromotion._no_pattern_handlers[promotionCode] || ItemPromotion._no_pattern_handlers.default).apply(null, arguments) : (ItemPromotion._pattern_handlers[pattern] || ItemPromotion._pattern_handlers.default).apply(null, arguments);
         };
     }
 
     ItemPromotion.prototype.applyPromotion = function applyPromotion(cartItem) {
         let self = this;
         if (!cartItem._appliedPromotionGroups) cartItem._appliedPromotionGroups = new Set();
+        if (!cartItem.promotions) cartItem.promotions = [];
+        if (!cartItem._promotionCodes) cartItem._promotionCodes = [];
         let grps = utils.arrayify(self.mutualExclusivityGroups);
-        if (grps.some(g => cartItem._appliedPromotionGroups.has(g))) return cartItem;
+        if (grps.some(g => cartItem._appliedPromotionGroups.has(g))) return false;
         grps.forEach(g => {
             cartItem._appliedPromotionGroups.add(g);
         });
-        return self.constructor.getHandler(self.pattern, self.code).apply(null, [cartItem, ...(self.params || [])]);
+        if (getHandler(self.pattern, self.code).apply(null, [cartItem, ...(self.params || [])])) {
+            cartItem.promotions.push(self.description || '');
+            cartItem._promotionCodes.push(self.code);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
