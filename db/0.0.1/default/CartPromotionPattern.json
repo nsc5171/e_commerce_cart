@@ -1,0 +1,15 @@
+[
+    {
+        "code": "NO_PATTERN",
+        "description": "No specfic pattern.",
+        "params": []
+    },
+    {
+        "code": "CART_THRESHOLD",
+        "description": "If the total basket price(after previous discounts) is over Rs {{cartValue}}, the basket receives an additional discount of Rs {{cartDiscount}}.",
+        "params": [
+            "cartValue",
+            "cartDiscount"
+        ]
+    }
+]

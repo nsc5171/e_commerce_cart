@@ -43,6 +43,42 @@
             "enabled": true,
             "file": "default/AppConfig.json",
             "ctxId": "default"
+        },
+        {
+            "skipValidation": false,
+            "updateAttributes": false,
+            "key": "id",
+            "model": "CartPromotionPattern",
+            "enabled": true,
+            "file": "default/CartPromotionPattern.json",
+            "ctxId": "default"
+        },
+        {
+            "skipValidation": false,
+            "updateAttributes": false,
+            "key": "id",
+            "model": "ItemPromotionPattern",
+            "enabled": true,
+            "file": "default/ItemPromotionPattern.json",
+            "ctxId": "default"
+        },
+        {
+            "skipValidation": false,
+            "updateAttributes": false,
+            "key": "id",
+            "model": "CartPromotion",
+            "enabled": true,
+            "file": "default/CartPromotion.json",
+            "ctxId": "default"
+        },
+        {
+            "skipValidation": false,
+            "updateAttributes": false,
+            "key": "id",
+            "model": "ItemPromotion",
+            "enabled": true,
+            "file": "default/ItemPromotion.json",
+            "ctxId": "default"
         }
     ]
 }

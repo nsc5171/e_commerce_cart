@@ -9,6 +9,14 @@
     "properties": {
         "mutualExclusivityGroups": [
             "string"
+        ],
+        "pattern": {
+            "type": "string",
+            "refcodetype": "CartPromotionPattern",
+            "required": true
+        },
+        "params": [
+            "string"
         ]
     },
     "validations": [],

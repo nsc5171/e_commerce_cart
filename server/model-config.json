@@ -21,6 +21,10 @@
   },
   "ItemPromotion": {
     "dataSource": "db",
+    "public": true
+  },
+  "ItemPromotionPattern": {
+    "dataSource": "db",
     "public": false
   },
   "Cart": {
@@ -30,5 +34,9 @@
   "CartPromotion": {
     "dataSource": "db",
     "public": true
-  }
+  },
+  "CartPromotionPattern": {
+    "dataSource": "db",
+    "public": false
+  },
 }

@@ -1,20 +1,12 @@
 {
-    "name": "ItemPromotion",
-    "plural": "ItemPromotions",
+    "name": "ItemPromotionPattern",
+    "plural": "ItemPromotionPatterns",
     "base": "RefCodeBase",
     "idInjection": true,
     "options": {
         "validateUpsert": true
     },
     "properties": {
-        "mutualExclusivityGroups": [
-            "string"
-        ],
-        "pattern": {
-            "type": "string",
-            "refcodetype": "CartPromotionPattern",
-            "required": true
-        },
         "params": [
             "string"
         ]

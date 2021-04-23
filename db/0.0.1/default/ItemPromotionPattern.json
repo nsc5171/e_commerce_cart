@@ -1,0 +1,15 @@
+[
+    {
+        "code": "NO_PATTERN",
+        "description": "No specfic pattern.",
+        "params": []
+    },
+    {
+        "code": "MULTI_BUY",
+        "description": "If {{itemCountEqOrMoreThan}} of the item is purchased, then you get {{discountPerItem}} discount per item",
+        "params": [
+            "itemCountEqOrMoreThan",
+            "discountPerItem"
+        ]
+    }
+]

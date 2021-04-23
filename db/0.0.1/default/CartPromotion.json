@@ -1,0 +1,12 @@
+[
+    {
+        "code": "20_OFF_OVER_150",
+        "description": "If the total basket price(after previous discounts) is over Rs 150, the basket receives an additional discount of Rs 20.",
+        "mutualExclusivityGroups": [],
+        "pattern": "CART_THRESHOLD",
+        "params": [
+            "150",
+            "20"
+        ]
+    }
+]
