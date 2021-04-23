@@ -15,6 +15,18 @@ module.exports = function cart(Cart) {
         process.nextTick(next);
     });
 
+    Cart.observe('before save', function calculateCartPricingAtWrite(ctx, next) {
+        ctx.Model.calculateCartPricing(ctx.isNewInstance ? ctx.instance.toObject() : Object.assign(ctx.currentInstance.toObject(), ctx.data), ctx.options, (err, data) => {
+            if (err) return next(err);
+            if (ctx.isNewInstance) {
+                ctx.instance.__data = data;
+            } else {
+                ctx.data = data;
+            }
+            next();
+        }, true);
+    })
+
     Cart.remoteMethod('calculateCartPricing', {
         accepts: [
             { arg: 'data', required: true, type: "object", http: { source: "body" } },
@@ -24,7 +36,7 @@ module.exports = function cart(Cart) {
         returns: { root: true, type: 'object' }
     });
 
-    Cart.calculateCartPricing = function calculateCartPricing(data, options, next) {
+    Cart.calculateCartPricing = function calculateCartPricing(data, options, next, atStorage = false) {
         data.items = utils.arrayify(data.items);
         let fnCtx = { itemTypes: Array.from(utils.arrayify(data && data.items).reduce((fin, curr) => { fin.add(curr.itemType); return fin; }, new Set())), itemPromotionCodes: new Set(), itemMasters: {} };
         async.waterfall([
@@ -79,7 +91,8 @@ module.exports = function cart(Cart) {
                     item.discount = 0;
                     utils.arrayify(itemMaster.promotionCodes).forEach(promotionCode => {
                         fnCtx.itemPromotionInsts[promotionCode].applyPromotion(item);
-                    })
+                    });
+                    if (!atStorage) item._sellingPrice = Math.max(0, (item.quantity * item.perItemMRP) - item.discount);
                 });
                 process.nextTick(stepDone);
             },
@@ -91,18 +104,27 @@ module.exports = function cart(Cart) {
                 data.items.forEach(item => {
                     data.itemsDiscount += item.discount;
                     data.MRP += (item.perItemMRP * item.quantity);
-                    item._appliedPromotionGroups = Array.from(item._appliedPromotionGroups);
                     item._appliedPromotionGroups.forEach(val => {
                         data._appliedPromotionGroups.add(val);
                     });
-                    // delete item._appliedPromotionGroups;
+                    if (!atStorage) item._appliedPromotionGroups = Array.from(item._appliedPromotionGroups);
+                    else delete item._appliedPromotionGroups;
                 })
                 utils.arrayify(fnCtx.cartPromotionCodes).forEach(promotionCode => {
                     fnCtx.cartPromotionInsts[promotionCode].applyPromotion(data);
                 })
-                data._appliedPromotionGroups = Array.from(data._appliedPromotionGroups);
+                if (!atStorage) {
+                    data._appliedPromotionGroups = Array.from(data._appliedPromotionGroups);
+                    data._sellingPrice = Math.max(0, data.MRP - data.itemsDiscount - data.cartDiscount);
+                }
+                else {
+                    delete data._appliedPromotionGroups
+                };
                 process.nextTick(stepDone);
             }
-        ], err => next(err, data));
+        ], err => {
+
+            next(err, data)
+        });
     }
 }

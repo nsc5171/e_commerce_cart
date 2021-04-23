@@ -1,7 +1,7 @@
 [
     {
         "code": "5_OFF_FOR_>=3",
-        "description": "If 3 of the item is purchased, the price of all three is Rs 75(i.e multiples of 3 discount)",
+        "description": "Buy 3 or more of the product to get Rs 5 discount per item",
         "mutualExclusivityGroups": [],
         "pattern": "MULTI_BUY",
         "params": [
@@ -11,7 +11,7 @@
     },
     {
         "code": "2.5_OFF_FOR_>=2",
-        "description": "If 2 of the item is purchased, the price of both is Rs 35(i.e multiples of 2 discount)",
+        "description": "Buy 2 or more of the product to get Rs 2.5 discount per item",
         "mutualExclusivityGroups": [],
         "pattern": "MULTI_BUY",
         "params": [
