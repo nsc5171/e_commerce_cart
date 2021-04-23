@@ -13,7 +13,12 @@
       "min": 0,
       "required": true
     },
-    "discount": {
+    "itemsDiscount": {
+      "type": "number",
+      "numericality": "integer",
+      "min": 0
+    },
+    "cartDiscount": {
       "type": "number",
       "numericality": "integer",
       "min": 0

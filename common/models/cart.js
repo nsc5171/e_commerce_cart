@@ -24,19 +24,31 @@ module.exports = function cart(Cart) {
     });
 
     Cart.calculateCartPricing = function calculateCartPricing(data, options, next) {
-        let fnCtx = { itemTypes: Array.from(utils.arrayify(data && data.items).reduce((fin, curr) => { fin.add(curr.itemType); return fin; }, new Set())) };
+        let fnCtx = { itemTypes: Array.from(utils.arrayify(data && data.items).reduce((fin, curr) => { fin.add(curr.itemType); return fin; }, new Set())), itemPromotionCodes: new Set(), itemMasters: {} };
         async.waterfall([
-            function fetchAppConfig(stepDone) {
-                utils.lb.findModel('AppConfig').findOne({ where: { key: 'settings' } }, options, (err, cfgInst) => {
-                    fnCtx.cartPromotionCodes = utils.arrayify(utils.valueAt(cfgInst, ['value', 'cartPromotions']));
-                    stepDone(err);
-                })
+            function fetchPromotionCodes(stepDone) {
+                async.parallel([
+                    function fetchAppConfig(threadDone) {
+                        utils.lb.findModel('AppConfig').findOne({ where: { key: 'settings' } }, options, (err, cfgInst) => {
+                            fnCtx.cartPromotionCodes = utils.arrayify(utils.valueAt(cfgInst, ['value', 'cartPromotions']));
+                            threadDone(err);
+                        })
+                    },
+                    function fetchItemMasterRecs(threadDone) {
+                        utils.lb.findModel('ItemMaster').find({ where: { inq: fnCtx.itemTypes } }, options, (err, itemMasterRecs) => {
+                            if (err) return threadDone(err);
+                            utils.arrayify(itemMasterRecs).forEach(im => {
+                                fnCtx.itemMasters[im.code] = im;
+                                utils.arrayify(im.promotionCodes).forEach(pc => {
+                                    fnCtx.itemPromotionCodes.add(pc);
+                                })
+                            })
+                            threadDone();
+                        })
+                    }
+                ], stepDone);
             },
-            function fetchItemMasterRecs(stepDone){
-                utils.lb.findModel('ItemMaster').find({where:{inq:fnCtx.itemTypes}},options,(err , itemMasterRecs)=>{
-                    
-                })
-            }
+            
         ], err => next(err, data));
     }
 }
