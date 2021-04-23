@@ -2,7 +2,9 @@
     {
         "code": "5_OFF_FOR_>=3",
         "description": "Buy 3 or more of the product to get Rs 5 discount per item",
-        "mutualExclusivityGroups": [],
+        "mutualExclusivityGroups": [
+            "NEW_YEAR_SALE"
+        ],
         "pattern": "MULTI_BUY",
         "params": [
             "3",
@@ -12,11 +14,25 @@
     {
         "code": "2.5_OFF_FOR_>=2",
         "description": "Buy 2 or more of the product to get Rs 2.5 discount per item",
-        "mutualExclusivityGroups": [],
+        "mutualExclusivityGroups": [
+            "CLEARANCE_SALE"
+        ],
         "pattern": "MULTI_BUY",
         "params": [
             "2",
             "2.5"
+        ]
+    },
+    {
+        "code": "6_OFF_FOR_>=10",
+        "description": "Buy 10 or more of the product to get Rs 6 discount per item",
+        "mutualExclusivityGroups": [
+            "NEW_YEAR_SALE"
+        ],
+        "pattern": "MULTI_BUY",
+        "params": [
+            "10",
+            "6"
         ]
     }
 ]

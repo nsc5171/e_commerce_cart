@@ -94,11 +94,10 @@ module.exports = function cart(Cart) {
                         discount: 0,
                         promotions: [],
                         _promotionCodes: []
-                    }),
-
-                        utils.arrayify(itemMaster.promotionCodes).forEach(promotionCode => {
-                            fnCtx.itemPromotionInsts[promotionCode].applyPromotion(item);
-                        });
+                    });
+                    utils.arrayify(itemMaster.promotionCodes).forEach(promotionCode => {
+                        fnCtx.itemPromotionInsts[promotionCode].applyPromotion(item);
+                    });
                     if (!atStorage) item._sellingPrice = Math.max(0, (item.quantity * item.perItemMRP) - item.discount);
                 });
                 process.nextTick(stepDone);
@@ -106,6 +105,7 @@ module.exports = function cart(Cart) {
             function processCartPromotions(stepDone) {
                 Object.assign(data, {
                     _appliedPromotionGroups: new Set(),
+                    _cartOnlyPromotionGroups: new Set(),
                     itemsDiscount: 0,
                     cartDiscount: 0,
                     MRP: 0,
@@ -125,8 +125,11 @@ module.exports = function cart(Cart) {
                     fnCtx.cartPromotionInsts[promotionCode].applyPromotion(data);
                 })
                 if (!atStorage) {
-                    data._appliedPromotionGroups = Array.from(data._appliedPromotionGroups);
-                    data._sellingPrice = Math.max(0, data.MRP - data.itemsDiscount - data.cartDiscount);
+                    Object.assign(data, {
+                        _appliedPromotionGroups: Array.from(data._appliedPromotionGroups),
+                        _cartOnlyPromotionGroups: Array.from(data._cartOnlyPromotionGroups),
+                        _sellingPrice: Math.max(0, data.MRP - data.itemsDiscount - data.cartDiscount)
+                    })
                 }
                 else {
                     delete data._appliedPromotionGroups

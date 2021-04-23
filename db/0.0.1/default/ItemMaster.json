@@ -26,5 +26,15 @@
         "description": "Doll",
         "MRP": "15",
         "promotionCodes": []
+    },
+    {
+        "code": "E",
+        "description": "Enhanced item",
+        "MRP": "15",
+        "promotionCodes": [
+            "6_OFF_FOR_>=10",
+            "5_OFF_FOR_>=3",
+            "2.5_OFF_FOR_>=2"
+        ]
     }
 ]

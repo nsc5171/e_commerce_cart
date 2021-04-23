@@ -9,18 +9,15 @@
   "properties": {
     "MRP": {
       "type": "number",
-      "numericality": "integer",
       "min": 0,
       "required": true
     },
     "itemsDiscount": {
       "type": "number",
-      "numericality": "integer",
       "min": 0
     },
     "cartDiscount": {
       "type": "number",
-      "numericality": "integer",
       "min": 0
     },
     "promotions": [

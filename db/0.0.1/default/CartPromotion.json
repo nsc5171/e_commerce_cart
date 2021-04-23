@@ -2,7 +2,9 @@
     {
         "code": "20_OFF_OVER_150",
         "description": "Spend Rs 150 or more after discounts to get additional Rs 20 discount",
-        "mutualExclusivityGroups": [],
+        "mutualExclusivityGroups": [
+            "CLEARANCE_SALE"
+        ],
         "pattern": "CART_THRESHOLD",
         "params": [
             "150",

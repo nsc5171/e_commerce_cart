@@ -36,12 +36,13 @@ module.exports = function cartPromotion(CartPromotion) {
         if (!cart._promotionCodes) cart._promotionCodes = [];
         let grps = utils.arrayify(self.mutualExclusivityGroups);
         if (grps.some(g => cart._appliedPromotionGroups.has(g))) return false;
-        grps.forEach(g => {
-            cart._appliedPromotionGroups.add(g);
-        });
         if (getHandler(self.pattern, self.code).apply(null, [cart, ...(self.params || [])])) {
             cart.promotions.push(self.description || '');
             cart._promotionCodes.push(self.code);
+            grps.forEach(g => {
+                cart._appliedPromotionGroups.add(g);
+                cart._cartOnlyPromotionGroups.add(g);
+            });
             return true;
         } else {
             return false;
