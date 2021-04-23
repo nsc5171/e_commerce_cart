@@ -86,10 +86,12 @@ module.exports = function cart(Cart) {
             function processCartPromotions(stepDone) {
                 data._appliedPromotionGroups = new Set();
                 data.itemsDiscount = 0;
+                data.cartDiscount = 0;
                 data.MRP = 0;
                 data.items.forEach(item => {
                     data.itemsDiscount += item.discount;
                     data.MRP += (item.perItemMRP * item.quantity);
+                    item._appliedPromotionGroups = Array.from(item._appliedPromotionGroups);
                     item._appliedPromotionGroups.forEach(val => {
                         data._appliedPromotionGroups.add(val);
                     });
@@ -98,6 +100,7 @@ module.exports = function cart(Cart) {
                 utils.arrayify(fnCtx.cartPromotionCodes).forEach(promotionCode => {
                     fnCtx.cartPromotionInsts[promotionCode].applyPromotion(data);
                 })
+                data._appliedPromotionGroups = Array.from(data._appliedPromotionGroups);
                 process.nextTick(stepDone);
             }
         ], err => next(err, data));
