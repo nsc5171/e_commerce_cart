@@ -19,7 +19,9 @@ module.exports = function cart(Cart) {
         ctx.Model.calculateCartPricing(ctx.isNewInstance ? ctx.instance.toObject() : Object.assign(ctx.currentInstance.toObject(), ctx.data), ctx.options, (err, data) => {
             if (err) return next(err);
             if (ctx.isNewInstance) {
-                ctx.instance.__data = data;
+                let CartItemClass = utils.lb.findModel('CartItem');
+                ctx.instance.setAttribute("items", utils.arrayify(data.items).map(i => new CartItemClass(i)));
+                ["MRP", "itemsDiscount", "cartDiscount", "promotions"].forEach(f => ctx.instance.setAttribute(f, data[f]));
             } else {
                 ctx.data = data;
             }
@@ -123,7 +125,6 @@ module.exports = function cart(Cart) {
                 process.nextTick(stepDone);
             }
         ], err => {
-
             next(err, data)
         });
     }
