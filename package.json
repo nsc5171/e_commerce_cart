@@ -10,14 +10,17 @@
   "scripts": {
     "lint": "eslint .",
     "fix-lint": "eslint --fix .",
-    "prestart":"node server/migrate.js",
-    "start":"node server/server.js",
-    "predebug":"node --inspect server/migrate.js",
-    "debug":"node --inspect server/server.js"
+    "prestart": "node server/migrate.js",
+    "start": "node server/server.js",
+    "predebug": "node --inspect server/migrate.js",
+    "debug": "node --inspect server/server.js",
+    "test": "jest"
   },
   "dependencies": {
     "@nsaichandra/oe-common-utils": "^0.0.27",
     "async": "^2.5.0",
+    "axios": "^0.21.1",
+    "jest": "^26.6.3",
     "lodash": "^4.17.15",
     "loopback-component-explorer": "^6.5.0",
     "oe-business-rule": "^2.3.0",
