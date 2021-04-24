@@ -80,13 +80,144 @@
 			]
 		},
 		{
+			"name": "calculateCartPricing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.environment.set(\"cartId\", pm.response.json().id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"items\": [\r\n        {\r\n            \"itemType\": \"E\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri}}/Carts/calculateCartPricing?access_token={{access_token}}",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"Carts",
+						"calculateCartPricing"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create cart record",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.environment.set(\"cartId\", pm.response.json().id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"MRP\":100,\r\n  \"sellingPrice\": 50,\r\n  \"promotions\": [\r\n    \r\n  ],\r\n  \"items\": [\r\n    {\r\n      \"itemType\": \"A\",\r\n      \"quantity\": 2,\r\n      \"perItemMRP\": 50,\r\n      \"sellingPrice\": 50,\r\n      \"promotions\": [\r\n        \"50% off\"\r\n      ]\r\n    }\r\n  ]\r\n}",
+					"raw": "{\r\n    \"items\": [\r\n        {\r\n            \"itemType\": \"A\",\r\n            \"quantity\": 3\r\n        },\r\n        {\r\n            \"itemType\": \"B\",\r\n            \"quantity\": 3\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri}}/Carts?access_token={{access_token}}",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"Carts"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Cart Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/Carts/{{cartId}}?access_token={{access_token}}",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"Carts",
+						"{{cartId}}"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test cases",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.environment.set(\"cartId\", pm.response.json().id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"items\": [\r\n            {\r\n                \"itemType\": \"A\",\r\n                \"quantity\": 3\r\n            },\r\n            {\r\n                \"itemType\": \"B\",\r\n                \"quantity\": 2\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"items\": [\r\n            {\r\n                \"itemType\": \"E\",\r\n                \"quantity\": 1\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"items\": [\r\n            {\r\n                \"itemType\": \"E\",\r\n                \"quantity\": 2\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"items\": [\r\n            {\r\n                \"itemType\": \"E\",\r\n                \"quantity\": 3\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"items\": [\r\n            {\r\n                \"itemType\": \"E\",\r\n                \"quantity\": 10\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"items\": [\r\n            {\r\n                \"itemType\": \"A\",\r\n                \"quantity\": 20\r\n            }\r\n        ]\r\n    },\r\n    {\r\n        \"items\": [\r\n            {\r\n                \"itemType\": \"B\",\r\n                \"quantity\": 30\r\n            }\r\n        ]\r\n    }\r\n]",
 					"options": {
 						"raw": {
 							"language": "json"
