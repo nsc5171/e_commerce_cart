@@ -14,6 +14,15 @@ module.exports = function cartPromotion(CartPromotion) {
                 return true;
             }
             return false;
+        },
+        "CART_ITEM_SPECIFICS": function (cart, flatRate, productsCSV) {
+            if (productsCSV.split(',').every(pType => {
+                return cart.items.some(item => item.itemType === pType);
+            })) {
+                cart.cartDiscount += utils.num(flatRate);
+                return true;
+            }
+            return false;
         }
     };
 

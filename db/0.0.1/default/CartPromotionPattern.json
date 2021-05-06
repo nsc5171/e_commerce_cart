@@ -11,5 +11,13 @@
             "cartValue",
             "cartDiscount"
         ]
+    },
+    {
+        "code": "CART_ITEM_SPECIFICS",
+        "description": "If the basket has products (after previous discounts) is over Rs {{cartValue}}, the basket receives an additional discount of Rs {{cartDiscount}}.",
+        "params": [
+            "flatRate",
+            "products...csv"
+        ]
     }
 ]

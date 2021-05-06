@@ -115,7 +115,7 @@ module.exports = function cart(Cart) {
                 data.items.forEach(item => {
                     data.itemsDiscount += item.discount;
                     data.MRP += (item.perItemMRP * item.quantity);
-                    item._appliedPromotionGroups.forEach(val => {
+                    utils.arrayify(item._appliedPromotionGroups).forEach(val => {
                         data._appliedPromotionGroups.add(val);
                     });
                     if (!atStorage) item._appliedPromotionGroups = Array.from(item._appliedPromotionGroups);

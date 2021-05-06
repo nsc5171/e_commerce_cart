@@ -14,7 +14,7 @@ module.exports = function itemPromotion(ItemPromotion) {
                 return true;
             }
             return false;
-        }
+        },
     };
 
     ItemPromotion._no_pattern_handlers = {

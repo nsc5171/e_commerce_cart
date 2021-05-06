@@ -10,5 +10,15 @@
             "150",
             "20"
         ]
+    },
+    {
+        "code": "10_FLAT_OFF_A_B",
+        "description": "Flat 10 off for buying both A and B",
+        "mutualExclusivityGroups": [],
+        "pattern": "CART_ITEM_SPECIFICS",
+        "params": [
+            "10",
+            "A,B"
+        ]
     }
 ]

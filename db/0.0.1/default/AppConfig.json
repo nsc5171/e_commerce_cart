@@ -3,7 +3,8 @@
         "key": "settings",
         "value": {
             "cartPromotions": [
-                "20_OFF_OVER_150"
+                "20_OFF_OVER_150",
+                "10_FLAT_OFF_A_B"
             ]
         }
     }
